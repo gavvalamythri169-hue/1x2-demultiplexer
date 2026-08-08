@@ -1,0 +1,38 @@
+`timescale 1ns/1ps
+
+module demux1x2_tb;
+
+reg D, S;
+wire Y0, Y1;
+
+// Instantiate the Unit Under Test (UUT)
+demux1x2 uut (
+    .D(D),
+    .S(S),
+    .Y0(Y0),
+    .Y1(Y1)
+);
+
+initial begin
+    $dumpfile("demux1x2.vcd");
+    $dumpvars(0, demux1x2_tb);
+
+    $display("Time\tD S | Y0 Y1");
+    $monitor("%0t\t%b %b |  %b  %b", $time, D, S, Y0, Y1);
+
+    // Test Case 1
+    D = 0; S = 0; #10;
+
+    // Test Case 2
+    D = 1; S = 0; #10;
+
+    // Test Case 3
+    D = 0; S = 1; #10;
+
+    // Test Case 4
+    D = 1; S = 1; #10;
+
+    $finish;
+end
+
+endmodule
